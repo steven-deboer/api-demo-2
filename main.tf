@@ -15,7 +15,7 @@ resource "google_compute_instance" "vulnerable-vm" {
   }
 
   network_interface {
-    network = "default"
+    network = "lab-01-vpc"
     access_config {
       // Lege access_config section zorgt voor een extern IP-adres
     }

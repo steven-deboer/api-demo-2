@@ -29,9 +29,9 @@ resource "google_compute_instance" "vulnerable-vm" {
   labels = {
     yor_name             = "vulnerable-vm"
     yor_trace            = "71a29b9f-20dd-40bc-836c-ec03766d0fcd"
-    git_commit           = "11fc767fd6ba631e13486ef4b70d531660464fb7"
+    git_commit           = "cd941c88a437e4ec8a87943ac87f638fa88cef4d"
     git_file             = "main_tf"
-    git_last_modified_at = "2023-12-06-14-26-05"
+    git_last_modified_at = "2023-12-06-14-29-53"
     git_last_modified_by = "stdeboer"
     git_modifiers        = "stdeboer"
     git_org              = "boeronline"

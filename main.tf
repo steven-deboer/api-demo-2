@@ -26,6 +26,10 @@ resource "google_compute_instance" "kwetsbare-vm" {
     scopes = ["cloud-platform"]
   }
   tags = ["http-server", "https-server"]
+  labels = {
+    yor_name  = "kwetsbare-vm"
+    yor_trace = "71a29b9f-20dd-40bc-836c-ec03766d0fcd"
+  }
 }
 
 resource "google_compute_firewall" "kwetsbare-firewall" {

@@ -41,7 +41,7 @@ resource "google_compute_instance" "vulnerable-vm" {
 
 resource "google_compute_firewall" "vulnerable-firewall" {
   name    = "allow-http-https"
-  network = "default"
+  network = "lab-01-vpc"
 
   allow {
     protocol = "tcp"

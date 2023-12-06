@@ -27,8 +27,15 @@ resource "google_compute_instance" "vulnerable-vm" {
   }
   tags = ["http-server", "https-server"]
   labels = {
-    yor_name  = "vulnerable-vm"
-    yor_trace = "71a29b9f-20dd-40bc-836c-ec03766d0fcd"
+    yor_name             = "vulnerable-vm"
+    yor_trace            = "71a29b9f-20dd-40bc-836c-ec03766d0fcd"
+    git_commit           = "11fc767fd6ba631e13486ef4b70d531660464fb7"
+    git_file             = "main_tf"
+    git_last_modified_at = "2023-12-06-14-26-05"
+    git_last_modified_by = "stdeboer"
+    git_modifiers        = "stdeboer"
+    git_org              = "boeronline"
+    git_repo             = "api-demo"
   }
 }
 

@@ -1,12 +1,12 @@
 provider "google" {
-  project = "jouw-project-id"
-  region  = "jouw-regio"
+  project = "lab-01-396307"
+  region  = "europe-west4"
 }
 
-resource "google_compute_instance" "kwetsbare-vm" {
-  name         = "kwetsbare-vm"
+resource "google_compute_instance" "vulnerable-vm" {
+  name         = "vulnerable-vm"
   machine_type = "e2-medium"
-  zone         = "jouw-zone"
+  zone         = "europe-west4-a"
 
   boot_disk {
     initialize_params {
@@ -28,7 +28,7 @@ resource "google_compute_instance" "kwetsbare-vm" {
   tags = ["http-server", "https-server"]
 }
 
-resource "google_compute_firewall" "kwetsbare-firewall" {
+resource "google_compute_firewall" "vulnerable-firewall" {
   name    = "allow-http-https"
   network = "default"
 

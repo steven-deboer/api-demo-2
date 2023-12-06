@@ -15,7 +15,7 @@ resource "google_compute_instance" "vulnerable-vm" {
   }
 
   network_interface {
-    network = "lab-01-vpc"
+    network    = "lab-01-vpc"
     subnetwork = "subnet-01"
     access_config {
       // Lege access_config section zorgt voor een extern IP-adres
@@ -30,9 +30,9 @@ resource "google_compute_instance" "vulnerable-vm" {
   labels = {
     yor_name             = "vulnerable-vm"
     yor_trace            = "71a29b9f-20dd-40bc-836c-ec03766d0fcd"
-    git_commit           = "cd941c88a437e4ec8a87943ac87f638fa88cef4d"
+    git_commit           = "113846e88c42bf6cea9422ca05f19474d9f19897"
     git_file             = "main_tf"
-    git_last_modified_at = "2023-12-06-14-29-53"
+    git_last_modified_at = "2023-12-06-14-32-08"
     git_last_modified_by = "stdeboer"
     git_modifiers        = "stdeboer"
     git_org              = "boeronline"

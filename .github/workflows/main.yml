@@ -25,10 +25,10 @@ jobs:
       - name: Update Dockerfile
         run: |
           ./twistcli app-embedded embed
+          --app-id APP99
           --user ${{ secrets.PC_USER }} \
           --password ${{ secrets.PC_PASS }} \
           --address ${{ secrets.PC_CONSOLE }} \
-          --app-id "app-ci-1" \
           --data-folder /twistlock \
           ./Dockerfile
 

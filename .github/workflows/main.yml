@@ -30,7 +30,7 @@ jobs:
           --password ${{ secrets.PC_PASS }} \
           --address ${{ secrets.PC_CONSOLE }} \
           --data-folder /twistlock \
-          ./Dockerfile
+          Dockerfile
 
       #- name: Build the image
       #  run: docker build -t $IMAGE_NAME .

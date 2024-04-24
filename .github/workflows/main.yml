@@ -1,25 +1,20 @@
-name: Risky Docker Pipeline
-
-on:
-  push:
-    branches:
-      - main  # or your default branch
+name: Prisma Cloud App Embedded Demo
+on: [ push,pull_request ]
 
 jobs:
-  build:
+  prisma_cloud_job:
     runs-on: ubuntu-latest
-
+    name: Run Prisma Cloud steps 
+    env:
+          PC_USER: ${{ secrets.PC_USER }}
+          PC_PASS: ${{ secrets.PC_PASS }}
+          PC_CONSOLE: ${{ secrets.PC_CONSOLE }} 
     steps:
-    - name: Checkout repo
-      uses: actions/checkout@v2
-      with:
-        fetch-depth: 0
-    - name: Run yor action
-      uses: bridgecrewio/yor-action@main
-    - name: Checkout Code
-      uses: actions/checkout@v2
-
-    - name: Build Docker Image
-      run: docker build -t my-api:latest .
-
     
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: twistcli download
+        run: curl -s -k -u $PC_USER:$PC_PASS "https://$PC_CONSOLE/api/v1/util/twistcli" -v -o twistcli;chmod +x twistcli
+
+   

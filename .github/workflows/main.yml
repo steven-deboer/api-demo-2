@@ -6,7 +6,6 @@ env:
   IMAGE_NAME: ${{ github.repository }}:${{ github.sha }}
 
 jobs:
-  # Jobs are ran independently from each other, so build and scan needs to be in a single job.
   build-and-scan:
     name: Build and scan image
     runs-on: ubuntu-latest
@@ -14,16 +13,11 @@ jobs:
     steps:
       - name: Check out the repository
         uses: actions/checkout@v2
-        # Defaults are sufficient generally
-        # https://github.com/actions/checkout#usage
 
       - name: Download twistcli from the Prisma Cloud Compute Console
         run: |
           curl --user ${{ secrets.PC_USER }}:${{ secrets.PC_PASS }} --output ./twistcli ${{ secrets.PC_CONSOLE }}/api/v1/util/twistcli
           chmod a+x ./twistcli
-
-      - name: ls
-        run: ls 
 
       - name: Update Dockerfile
         run: |
@@ -36,26 +30,14 @@ jobs:
           --output-file embedded.zip \
           Dockerfile
 
-      - name: ls
-        run: ls 
-
       - name: Rename existing Dockerfile
         run: mv Dockerfile Dockerfile.original
 
       - name: Extract created zip
         run: unzip embedded.zip
 
-      - name: ls
-        run: ls 
-
-      - name: cat
-        run: cat Dockerfile
-        
       - name: Build the image
         run: docker build -t $IMAGE_NAME .
 
       - name: Run the image
         run: docker run $IMAGE_NAME
-
-      #- name: Scan the image
-      #  run: ./twistcli images scan --address ${{ secrets.PC_CONSOLE }} --user ${{ secrets.PC_USER }} --password ${{ secrets.PC_PASS }} --details $IMAGE_NAME

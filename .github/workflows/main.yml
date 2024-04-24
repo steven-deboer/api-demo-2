@@ -1,20 +1,29 @@
-name: Prisma Cloud App Embedded Demo
-on: [ push,pull_request ]
+name: Prisma Cloud Compute Image Scan
+
+on: [push, pull_request]
+
+env:
+  IMAGE_NAME: ${{ github.repository }}:${{ github.sha }}
 
 jobs:
-  prisma_cloud_job:
+  # Jobs are ran independently from each other, so build and scan needs to be in a single job.
+  build-and-scan:
+    name: Build and scan image
     runs-on: ubuntu-latest
-    name: Run Prisma Cloud steps 
-    env:
-          PC_USER: ${{ secrets.PC_USER }}
-          PC_PASS: ${{ secrets.PC_PASS }}
-          PC_CONSOLE: ${{ secrets.PC_CONSOLE }} 
+
     steps:
-    
-      - name: Checkout
+      - name: Check out the repository
         uses: actions/checkout@v2
+        # Defaults are sufficient generally
+        # https://github.com/actions/checkout#usage
 
-      - name: twistcli download
-        run: echo $PC_CONSOLE; curl -s -k -u $PC_USER:$PC_PASS "https://$PC_CONSOLE/api/v1/util/twistcli" -v -o twistcli;chmod +x twistcli
+      - name: Download twistcli from the Prisma Cloud Compute Console
+        run: |
+          curl --user ${{ secrets.PC_USER }}:${{ secrets.PC_PASS }} --output ./twistcli ${{ secrets.PC_CONSOLE }}/api/v1/util/twistcli
+          chmod a+x ./twistcli
 
-   
+      - name: Build the image
+        run: docker build -t $IMAGE_NAME .
+
+      - name: Scan the image
+        run: ./twistcli images scan --address ${{ secrets.PC_CONSOLE }} --user $${{ secrets.PC_USER }} --password ${{ secrets.PC_PASS }} --details $IMAGE_NAME

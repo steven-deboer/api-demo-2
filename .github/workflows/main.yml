@@ -22,8 +22,18 @@ jobs:
           curl --user ${{ secrets.PC_USER }}:${{ secrets.PC_PASS }} --output ./twistcli ${{ secrets.PC_CONSOLE }}/api/v1/util/twistcli
           chmod a+x ./twistcli
 
-      - name: Build the image
-        run: docker build -t $IMAGE_NAME .
+      - name: Update Dockerfile
+        run: |
+          ./twistcli app-embedded embed
+          --user ${{ secrets.PC_USER }} \
+          --password ${{ secrets.PC_PASS }} \
+          --address ${{ secrets.PC_CONSOLE }} \
+          --app-id app-ci-1 \
+          --data-folder /twistlock \
+          ./Dockerfile
 
-      - name: Scan the image
-        run: ./twistcli images scan --address ${{ secrets.PC_CONSOLE }} --user $${{ secrets.PC_USER }} --password ${{ secrets.PC_PASS }} --details $IMAGE_NAME
+      #- name: Build the image
+      #  run: docker build -t $IMAGE_NAME .
+
+      #- name: Scan the image
+      #  run: ./twistcli images scan --address ${{ secrets.PC_CONSOLE }} --user ${{ secrets.PC_USER }} --password ${{ secrets.PC_PASS }} --details $IMAGE_NAME

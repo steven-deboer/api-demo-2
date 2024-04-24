@@ -22,6 +22,9 @@ jobs:
           curl --user ${{ secrets.PC_USER }}:${{ secrets.PC_PASS }} --output ./twistcli ${{ secrets.PC_CONSOLE }}/api/v1/util/twistcli
           chmod a+x ./twistcli
 
+      - name: ls
+        run: ls 
+
       - name: Update Dockerfile
         run: |
           ./twistcli app-embedded embed \
@@ -32,6 +35,9 @@ jobs:
           --data-folder /twistlock \
           --output-file embedded.zip \
           Dockerfile
+
+      - name: ls
+        run: ls 
 
       - name: Rename existing Dockerfile
         run: mv Dockerfile Dockerfile.original

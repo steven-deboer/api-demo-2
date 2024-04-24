@@ -33,11 +33,17 @@ jobs:
           --output-file embedded.zip \
           Dockerfile
 
+      - name: Rename existing Dockerfile
+        run: mv Dockerfile Dockerfile.original
+
       - name: Extract created zip
         run: unzip embedded.zip
 
       - name: ls
         run: ls 
+
+      - name: cat
+        run: cat Dockerfile
         
 
       #- name: Build the image

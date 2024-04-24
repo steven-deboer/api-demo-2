@@ -24,8 +24,8 @@ jobs:
 
       - name: Update Dockerfile
         run: |
-          ./twistcli app-embedded embed
-          --app-id APP99
+          ./twistcli app-embedded embed \
+          --app-id $IMAGE_NAME
           --user ${{ secrets.PC_USER }} \
           --password ${{ secrets.PC_PASS }} \
           --address ${{ secrets.PC_CONSOLE }} \
